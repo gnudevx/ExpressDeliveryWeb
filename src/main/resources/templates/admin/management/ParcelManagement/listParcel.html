@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Manage Parcels</title>
+</head>
+<body>
+	<section layout:fragment="content">
+    <div class="container mt-5">
+        <!-- Title and Button -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-center">Manage Parcels</h1>
+            <a href="/admin/parcels/addUser" class="btn btn-success">
+                <i class="fas fa-plus"></i> Thêm đơn hàng            </a>
+        </div>
+
+        <!-- Notification Message -->
+        <div th:if="${message != null}" class="alert alert-primary alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle"></i> <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Filter by Start Office -->
+        <form th:action="@{/admin/management/Parcel-Management/parcels/filter}" method="get" class="mb-4">
+            <div class="input-group">
+                <select name="address" class="form-select" required>
+                    <option value="" disabled selected>Chọn địa chỉ văn phòng bắt đầu</option>
+                    <option th:each="office : ${postOffices}" th:value="${office}" th:text="${office}"></option>
+                </select>
+                <button type="submit" class="btn btn-primary">Lọc</button> <!-- Nút lọc -->
+            </div>
+        </form>
+
+
+        <!-- Shipping Types Table -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">List of Parcels</div>
+            <div class="card-body">
+                <table class="table table-striped table-responsive">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Parcel ID</th>
+                            <th>User Name</th>
+                            <th>Recipient Name</th>
+                            <th>Shipper Name</th>
+                            <th>Current Status</th>
+                            <th>New Status</th>
+                            <th>Weight</th>
+                            <th>Note</th>
+                            <th>Start Office</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="parcel : ${parcels}">
+                            <td th:text="${parcel.parcelId}"></td>
+                            <td th:text="${parcel.userName}"></td>
+                            <td th:text="${parcel.recipientName != null ? parcel.recipientName : 'N/A'}"></td>
+                            <td th:text="${parcel.shipperName != null ? parcel.shipperName : 'N/A'}"></td>
+                            <td th:text="${parcel.status}"></td>
+                            <td>
+                                <form th:action="@{/admin/management/Parcel-Management/parcels/updateStatus/{id}(id=${parcel.parcelId})}" method="post" class="d-inline">
+                                    <select name="status" class="form-select" required>
+                                        <option value="" disabled selected>Chọn trạng thái</option>
+                                        <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm ms-2">Cập Nhật</button>
+                                </form>
+                            </td>
+                            <td th:text="${parcel.weight}"></td>
+                            <td th:text="${parcel.note}"></td>
+                            <td th:text="${parcel.startOffice}"></td>
+                            <td>
+                                <a th:href="@{/admin/management/Parcel-Management/parcels/parcelDetail/{id}(id=${parcel.parcelId})}" class="btn btn-warning btn-sm me-1">
+                                    <i class="fas fa-edit"></i> Detail
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

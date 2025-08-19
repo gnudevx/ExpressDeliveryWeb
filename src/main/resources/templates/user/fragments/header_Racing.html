@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+<div th:fragment="header">
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+                <a th:href="@{/layout-user.html}" class="navbar-brand ">
+                    <img class="img-fluid " th:src="@{/security/logoUTE/logo_home.png}" alt="Logo" >
+                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse ">
+                    <div class="navbar-nav ms-auto">
+                        <a href="/account/login_account" class="btn btn-white border-0 d-flex align-items-center">
+                            <img th:src="@{/user/img/avarta.png}" alt="Avatar" class="rounded-circle me-2"
+                                 style="width: 30px; height: 30px;">
+                            <span>Đăng nhập</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

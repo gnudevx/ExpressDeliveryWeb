@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<head>
+<style>
+.product-container {
+	display: flex;
+	align-items: center;
+	/* Dọc giữa theo chiều cao */
+}
+
+.aside {
+	margin-right: 10px;
+	margin-bottom: 10px;
+	/* Điều chỉnh khoảng cách giữa ảnh và nội dung nếu cần */
+}
+</style>
+</head>
+
+<body>
+
+	<section layout:fragment="content" class="user">
+
+		<div class="row">
+			<div class="col mt-4">
+				<div class="container">
+					<!-- Page Title -->
+					<div class="container-fluid px-4">
+						<h1 class="h3 mb-0 text-gray-800">Thông tin nhân viên</h1>
+						<ol class="breadcrumb mb-4">
+							<li class="breadcrumb-item"><a th:href="@{/admin/employees}"
+								style="text-decoration: none">Quản lý nhân viên</a></li>
+							<li class="breadcrumb-item active"><a
+								th:href="@{/admin/employees/detail/{id}(id=${user.userId})}"
+								style="text-decoration: none; color: black">Thông tin nhân
+									viên</a></li>
+						</ol>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row align-items-start">
+						<div class="nav flex-column nav-pills col-md-4">
+							<img th:src="@{${user.avatarImagePath}}" alt="User Image"
+								class="img-fluid"
+								style="width: 100%; height: 400px; border-radius: 10px; margin-bottom: 20px;"
+								onerror="this.onerror=null; this.src='/security/img/no-image.png';" />
+						</div>
+						<div class="tab-content col-md-8" id="v-pills-tabContent">
+							<!-- Tài khoản Tab -->
+							<div class="tab-pane fade show active" style="margin-left: 15px;"
+								id="v-pills-home" role="tabpanel"
+								aria-labelledby="v-pills-home-tab" tabindex="0">
+								<form action="/web/users/saveOrUpdate" method="POST">
+									<div class="card">
+										<div class="card-body">
+											<h1 class="h3 mb-0 text-gray-800" th:text="${user.fullname}"
+												style="font-size: 25px;"></h1>
+											<br><br>
+											<div class="mb-3">
+												<label for="userId" class="form-label"><i
+													class="fa fa-id-card"></i> <strong>Employee ID:</strong> </label>
+												<span th:text="${user.userId}" id="userId"></span>
+											</div>
+											
+											<div class="mb-3">
+												<label for="role" class="form-label"><i
+													class="fa fa-briefcase"></i> <strong>Role:</strong></label> <span
+													th:text="${user.role.name}" id="role"></span>
+											</div>
+											
+											<div class="mb-3" th:if="${user.employOffice != null}">
+												<label for="office" class="form-label"><i
+													class="fa fa-building"></i> <strong>Post office:</strong></label>
+												<span th:text="${user.employOffice.office.address}"
+													id="office"></span>
+											</div>
+											
+											<div class="mb-3">
+												<label for="email" class="form-label"><i
+													class="fa fa-envelope"></i> <strong>Employee
+														email:</strong></label> <span th:text="${user.email}" id="email"></span>
+											</div>
+											<div class="mb-3">
+												<label for="password" class="form-label"><i
+													class="fa fa-lock"></i> <strong>Password:</strong></label> <span
+													th:text="${user.password}" id="password"></span>
+											</div>
+											<div class="mb-3">
+												<label for="phone" class="form-label"><i
+													class="fa fa-phone"></i> <strong>Employee
+														phone:</strong></label> <span th:text="${user.phone}" id="phone"></span>
+											</div>
+											<div class="mb-3">
+												<label for="address" class="form-label"><i
+													class="fa fa-map"></i> <strong>Employee
+														address:</strong></label> <span th:text="${user.address}" id="address"></span>
+											</div>
+
+											<div class="mb-3">
+												<label for="createDate" class="form-label"><i
+													class="fa fa-calendar"></i> <strong>Account
+														creation date:</strong></label> <span th:text="${user.createDate}"
+													id="createDate"></span>
+											</div>
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/config_layout/layout_Racing.html}" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Tracking Parcel</title>
+ <style>
+
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  }
+
+  .container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+  .parcel-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  }
+
+  .parcel-info span {
+  color: #333;
+  font-weight: bold;
+  }
+
+  .status {
+  display: flex;
+  align-items: center;
+  background-color: #e7f9e7;
+  border-left: 4px solid #4caf50;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  gap: 8px;
+  }
+
+  .status .status-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #4caf50;
+  }
+  p {
+    margin: 0; /* Loại bỏ margin mặc định của thẻ p */
+  }
+  .timeline {
+  border-left: 2px solid #ddd;
+  padding-left: 20px;
+  }
+
+  .timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+  }
+
+  .timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  }
+
+  .timeline-item .time {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+  }
+
+  .timeline-item .description {
+  font-size: 14px;
+  color: #333;
+  background: #f9f9f9;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+ </style>
+</head>
+<body>
+<div class="container" layout:fragment="content" >
+  <!-- Parcel Information -->
+  <div class="parcel-info">
+    <p><strong>Mã vận đơn:</strong> <span> <p th:text="${parcelRoute.ladingCode}"> </p></span>
+    <p><strong>Tên khách hàng:</strong> <span> <p th:text="${parcelRoute.userName}"></p> </span></p>
+  </div>
+
+  <!-- Status -->
+  <div th:if="${parcelRoute.status != 'In Transit'}">
+    <div class="status">
+      <div class="status-icon">✔️</div> <p>Đã giao hàng</p>
+    </div>
+  </div>
+  <div th:if="${parcelRoute.status == 'In Transit'}">
+    <div class="status">
+      <div class="status-icon">🚂</div>  <p>Đang giao hàng</p>
+    </div>
+  </div>
+  <!-- Timeline -->
+  <div class="timeline">
+    <div th:each="detail : ${parcelRoute.routeDetails}" class="timeline-item">
+      <!-- Thời gian đến -->
+      <div class="time-info">
+        <p><b>Thời gian đến: </b><span th:text="${detail.checkinTime != null ? detail.checkinTime : 'Đơn hàng đang được chuẩn bị'}"></span></p>
+      </div>
+
+      <!-- Địa chỉ đến -->
+      <div class="address-info">
+        <p><b>Địa chỉ đến: </b><span th:text="${detail.address != null ? detail.address : 'chưa có thông tin nơi đến'}"></span></p>
+      </div>
+
+      <!-- Thời gian đi -->
+      <div class="checkout-info">
+        <p><b>Thời gian đi: </b><span th:text="${detail.checkoutTime != null ? detail.checkoutTime : 'đơn hàng đang được trung chuyển'}"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

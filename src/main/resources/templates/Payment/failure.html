@@ -1,0 +1,19 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thanh toán thành công</title>
+</head>
+        <body>
+        <div class="alert">
+                <div th:if="${alert != null}">
+                        <div class="alert alert-success " id="alert-box" th:text="${alert}"></div>
+                </div>
+        </div>
+        <a href="/home/home_user">Trở về trang chủ</a>
+        </body>
+</html>

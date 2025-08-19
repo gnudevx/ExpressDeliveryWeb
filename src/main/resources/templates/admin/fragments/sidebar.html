@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+	<div th:fragment="sidebar">
+		<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<ul class="nav">
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/dashboard}"> <i
+							class="icon-bar-graph menu-icon"></i> <span class="menu-title">Tổng
+							quan</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/revenue}"> <i class="fa fa-dollar"></i> <span
+							class="menu-title" style="padding-left:18px;">Quản lý doanh thu</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/transaction}"> <i class="fa fa-bank"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lý giao dịch</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/offices}"> <i class="fa fa-building"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lý bưu cục</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/payments}"> <i class="fa fa-credit-card"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lý thanh toán</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/employees}"> <i class="fa fa-briefcase"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lý nhân viên</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/users}"> <i class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lý khách hàng</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/assign-shipper}"> <i class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Phân Công shipper</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/management/Parcel-Management/parcels}"> <i
+							class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản lí đơn hàng</span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/management/shippingManagement/ParcelType}">
+						<i class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản Loại hàng </span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/management/shippingFees}"> <i
+							class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Danh Sách Phí Vận Chuyển</span>
+					</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/management/shippingManagement/shippingType}">
+						<i class="fa fa-user"></i>
+						<span class="menu-title" style="padding-left:18px;">Quản Lí loại hình vận chuyển </span>
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
+						aria-controls="auth" onclick="event.preventDefault();"> <i class="fa fa-truck"></i> <span
+							class="menu-title" style="padding-left: 13px;">Quản
+							lý phương tiện</span> <i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="auth">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/vehicleTypes}"> Loại phương tiện
+								</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/admin/vehicles}"> Phương tiện </a></li>
+						</ul>
+					</div>
+				</li>
+
+
+			</ul>
+		</nav>
+	</div>
+</body>

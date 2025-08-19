@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+
+	<!--Thêm dòng này vào-->
+	<section layout:fragment="content">
+
+		<!--Viết nội dung từ đây-->
+		<div class="row" style="padding: 20px; padding-top: 10px;">
+			<div class="col">
+				<div class="container-fluid">
+					<h1 style="font-size: 27px; padding-left: 10px;">Thêm đơn hàng
+						mới</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a th:href="@{/admin/parcels}"
+							style="text-decoration: none">Quản lý đơn hàng</a></li>
+						<li class="breadcrumb-item active"><a
+							th:href="@{/admin/parcels/addRecipient}"
+							style="text-decoration: none; color: black;">Thêm đơn hàng
+								mới</a></li>
+					</ol>
+					<form th:action="@{/admin/parcels/saveRecipient}" method="POST">
+						<div class="card">
+							<div class="card-header">
+								<i class="icon-plus menu-icon"></i>
+								<h2 class="d-inline" style="font-size: 20px;">Add New
+									Parcel</h2>
+							</div>
+							<div class="card-body">
+								<div th:if="${message != null}">
+									<span th:text="${message}" style="color: red;"></span>
+								</div>
+								
+								<div class="mb-3">
+									<label for="recipientId" class="form-label">Recipient ID:</label>
+									<input type="hidden" name="userId" th:value="${userId}" />
+									<input type="text" readonly="readonly" class="form-control"
+										th:value="${recipient.recipientId}" id="recipientId" th:name="recipientId"
+										aria-describedby="recipientIdid" style="background:#ebebeb;">
+								</div>
+							
+								<div class="mb-3">
+									<label for="fullname" class="form-label">Full Name:</label> <input
+										th:value="${recipient.fullname}" type="text" class="form-control" id="fullname" name="fullname">
+								</div>
+								
+								<div class="mb-3">
+									<label for="phone" class="form-label">Phone:</label> <input
+										th:value="${recipient.phone}" type="text" class="form-control" id="phone" name="phone">
+								</div>
+								
+								<div class="mb-3">
+									<label for="address" class="form-label">Address:</label> <input
+										th:value="${recipient.address}" type="text" class="form-control" id="address" name="address">
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="card-footer text-muted" style="float: right;">
+							<button class="btn btn-primary" type="submit">
+								<i class="fa fa-save"></i> <span th:text="Save"></span>
+							</button>
+							<a th:href="@{/admin/parcels}" class="btn btn-success"><i
+								class="fa fa-bars"></i> Danh sách đơn hàng</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

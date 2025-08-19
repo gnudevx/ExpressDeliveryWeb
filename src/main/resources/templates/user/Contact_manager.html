@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chuyện với Admin</title>
+
+    <style>
+        /* Nút mở chat */
+        #chatButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Khung chat */
+        #chatBox {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Mặc định ẩn */
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #f1f1f1;
+            text-align: left;
+        }
+
+        .admin-message {
+            background-color: #e1f7d5;
+            text-align: right;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        .close-chat {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff5c5c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Nút mở chat -->
+<button id="chatButton" onclick="toggleChat()">💬</button>
+
+<!-- Khung chat -->
+<div id="chatBox">
+    <button class="close-chat" onclick="closeChat()">X</button>
+    <h3>Trò chuyện với Admin</h3>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." />
+    <button onclick="sendMessage()">Gửi</button>
+</div>
+
+<script>
+    // WebSocket connection
+    const socket = new WebSocket('ws://localhost:8086/ws/chat');
+
+    // Kết nối WebSocket đã thiết lập
+    socket.onopen = () => {
+        console.log('Kết nối WebSocket đã được thiết lập');
+    };
+
+    // Nhận tin nhắn từ WebSocket
+    socket.onmessage = (event) => {
+        const chatBox = document.getElementById('messages');
+        const message = event.data;
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'admin-message');
+        messageDiv.textContent = message;
+        chatBox.appendChild(messageDiv);
+    };
+
+    // Hàm gửi tin nhắn
+    function sendMessage() {
+        const messageInput = document.getElementById('messageInput');
+        const message = messageInput.value;
+        socket.send(message);  // Gửi tin nhắn đến server
+
+        // Hiển thị tin nhắn của khách hàng
+        const chatBox = document.getElementById('messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'user-message');
+        messageDiv.textContent = message;
+        chatBox.appendChild(messageDiv);
+
+        messageInput.value = ''; // Xóa nội dung ô nhập sau khi gửi
+    }
+
+    // Hàm chuyển đổi hiển thị/ẩn khung chat
+    function toggleChat() {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Hàm đóng chat
+    function closeChat() {
+        document.getElementById('chatBox').style.display = 'none';
+    }
+</script>
+</body>
+</html>

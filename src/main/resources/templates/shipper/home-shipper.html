@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{shipper/layout-shipper.html}">
+
+<body>
+	<section layout:fragment="content">
+		<div class="row" style="padding: 20px; padding-top: 10px;">
+			<h1 style="font-size: 27px;">DANH SÁCH CÁC ĐƠN HÀNG</h1>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fa fa-table me-1"></i> BẢNG DANH SÁCH ĐƠN HÀNG
+				</div>
+				<div class="container-fluid">
+					<table border="1" class="table table-striped table-bordered table-hover" id="parcelTable">
+						<thead>
+							<tr>
+								<th>Parcel ID</th>
+								<th>Trạng thái</th>
+								<th>Trọng lượng</th>
+								<th>Ngày tạo</th>
+								<th>Ngày hoàn thành</th>
+								<th>Người gửi</th>
+								<th>Người nhận</th>
+								<th>Phương thức thanh toán</th>
+								<th>Bưu cục gửi</th>
+								<th>Bưu cục nhận</th>
+								<th>Loại vận chuyển</th>
+								<th>Chi tiết sản phẩm</th>
+								<th>Lịch sử hành trình</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Duyệt qua danh sách các đơn hàng -->
+							<tr th:each="parcel : ${parcels}">
+								<td th:text="${parcel.parcelId}"></td>
+								<td th:text="${parcel.status}"></td>
+								<td th:text="${parcel.weight}"></td>
+								<td th:text="${parcel.createDate}"></td>
+								<td th:text="${parcel.completeDate}"></td>
+
+								<!-- Thông tin người gửi -->
+								<td th:text="${parcel.user.fullname}"></td>
+								<td th:text="${parcel.recipient.fullname}"></td>
+
+								<!-- Phương thức thanh toán -->
+								<td th:text="${parcel.paymentMethod.name}"></td>
+
+								<!-- Thông tin bưu cục -->
+								<td th:text="${parcel.startOffice.address}"></td>
+								<td th:text="${parcel.destinationOffice.address}"></td>
+
+								<!-- Loại vận chuyển -->
+								<td th:text="${parcel.shippingType.name}"></td>
+
+								<!-- Chi tiết sản phẩm -->
+								<td>
+									<ul>
+										<li th:each="detail : ${parcel.parcelDetails}">
+											<span th:text="${detail.product.name}"></span> -
+											<span th:text="${detail.quantity}"></span> -
+											<span th:text="${detail.product.weight}"></span>
+										</li>
+									</ul>
+								</td>
+
+								<!-- Lịch sử hành trình -->
+								<td>
+									<ul>
+										<li th:each="history : ${parcel.routeHistories}">
+											<span th:text="${history.status}"></span> -
+											<span th:text="${history.updateDate}"></span>
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+
+</html>

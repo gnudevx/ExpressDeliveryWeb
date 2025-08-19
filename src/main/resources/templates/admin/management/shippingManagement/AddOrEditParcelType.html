@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<title>Add or Edit Parcel Types</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+	<section class="row table-addlist">
+		<div class="col-md-6 offset-md-3">
+			<form th:action="@{/admin/management/shippingManagement/ParcelType/saveOrUpdate}" method="POST">
+
+				<div class="card">
+					<div class="card-header">
+						<h2 th:text="${parcelType.isEdit} ? 'Edit Parcel Type' : 'Add New Parcel Type'">Add or Edit Parcel Types</h2>
+					</div>
+					<div class="card-body">
+						<div class="mb-3">
+							<label for="parcelTypeId" class="form-label">Parcel Type ID:</label>
+							<input type="hidden" th:value="${parcelType.isEdit}">
+							<input type="text" readonly="readonly" class="form-control"
+								th:value="${parcelType.parcelTypeId}" id="parcelTypeId" name="parcelTypeId"
+								placeholder="Parcel Type ID">
+						</div>
+						<div class="mb-3">
+							<label for="name" class="form-label">Parcel Type Name:</label>
+							<input type="text" class="form-control" th:value="${parcelType.name}" id="name" name="name"
+								placeholder="Parcel Type Name">
+						</div>
+						<div class="mb-3">
+							<label for="minWeight" class="form-label">Minimum Weight:</label>
+							<input type="text" class="form-control" th:value="${parcelType.minWeight}" id="minWeight"
+								name="minWeight" placeholder="Minimum Weight">
+						</div>
+						<div class="mb-3">
+							<label for="maxWeight" class="form-label">Maximum Weight:</label>
+							<input type="text" class="form-control" th:value="${parcelType.maxWeight}" id="maxWeight"
+								name="maxWeight" placeholder="Maximum Weight">
+						</div>
+					</div>
+				</div>
+				<div class="card-footer text-right">
+					<a th:href="@{/admin/management/shippingManagement/ParcelType/add}" class="btn btn-secondary">Add Category</a>
+					<a th:href="@{/admin/management/shippingManagement/ParcelType}" class="btn btn-success">Back</a>
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-save"></i>
+						<span th:if="${parcelType.isEdit}">Update</span>
+						<span th:if="${!parcelType.isEdit}">Save</span>
+					</button>
+				</div>
+			</form>
+			
+<style>
+	.table-addlist{
+	padding-top:50px;
+	width:100%}
+
+</style>
+		</div>
+	</section>
+	</section>
+	
+</body>
+
+</html>

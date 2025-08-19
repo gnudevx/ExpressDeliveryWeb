@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách đơn hàng chưa thanh toán</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            color: #2980b9;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            padding: 30px;
+            background-color: #ffffff;
+            border-top: 4px solid #2980b9;
+        }
+
+        .card-body p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .card-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        button {
+            background-color: #2980b9;
+            border: none;
+            color: white;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #3498db;
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .card-columns {
+            column-count: 3;
+            column-gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .card-columns {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <form action="/api/payment/create_payment" method="get">
+        <h2>Danh sách đơn hàng chưa thanh toán</h2>
+
+        <div id="parcelList" class="card-columns">
+            <!-- Duyệt qua danh sách đơn hàng -->
+            <div th:each="parcel : ${parcels}" class="mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Đơn hàng ID: <span th:text="${parcel['parcelId']}"></span></h5>
+                        <p class="mb-2">
+                            <strong>Tên sản phẩm:</strong> <span th:text="${parcel['productName']}"></span><br>
+                            <strong>Cân nặng:</strong> <span th:text="${parcel['productWeight']}"></span> kg<br>
+                            <strong>Số lượng:</strong> <span th:text="${parcel['quantity']}"></span><br>
+                            <strong>Giá tiền sản phẩm:</strong> <span th:text="${parcel['money']}"></span> VNĐ<br>
+                            <strong>Phí vận chuyển:</strong> <span th:text="${parcel['shippingFee']}"></span> VNĐ<br>
+                            <strong>Tổng giá trị:</strong> <span th:text="${parcel['totalAmount']}"></span> VNĐ <br>
+                            <strong>Mô tả sản phẩm:</strong>
+                            <textarea readonly class="form-control mb-3" th:text="${parcel['productDescription']}"></textarea>
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end my-4 total-amount">
+            <strong>Tổng giá trị của tất cả các đơn hàng:</strong>
+           <input type="text" name ="cost" th:value="${totalAmount}" readonly="readonly" />
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Thanh toán</button>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+
+	<!--Thêm dòng này vào-->
+	<section layout:fragment="content">
+
+		<!--Viết nội dung từ đây-->
+		<div class="container-fluid">
+			<h1 style="font-size: 27px;">TỔNG QUAN</h1>
+			<br>
+		</div>
+		
+		<!-- Đơn hàng -->
+		<div>
+			<h1 class="h3 mb-0 text-gray-800"
+				style="padding-left: 20px; display: inline;">Đơn hàng</h1>
+			<a th:href="@{/admin}"
+				style="text-decoration: none; float: right; padding-right: 20px;">Quản
+				lý đơn hàng</a>
+			<hr class="text-gray-800"
+				style="clear: both; margin: 20px; margin-top: 5px; border: 1px solid;">
+		</div>
+
+		<div class="row">
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Đơn hàng (Theo ngày)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${parDay}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-truck fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-success text-uppercase mb-1">
+									Đơn hàng (Theo tuần)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${parWeek}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-truck fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Earnings (Quarter) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+									Đơn hàng (Theo tháng)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${parMonth}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-truck far fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-info shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-info text-uppercase mb-1">
+									Đơn hàng (Theo năm)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${parYear}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-truck fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+
+			<!-- Area Chart -->
+			<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN ĐƠN HÀNG TRONG NĂM</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myAreaChart1" width="752" height="400"
+								style="display: block; height: 320px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN ĐƠN HÀNG THEO QUÝ</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-pie pt-4 pb-2">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myPieChart1" width="752" height="306"
+								style="display: block; height: 245px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- Doanh thu -->
+		<div>
+			<br>
+			<h1 class="h3 mb-0 text-gray-800" style="padding-left: 20px; display: inline;">Doanh thu
+			</h1>
+			<a th:href="@{/admin/revenue}"
+				style="text-decoration: none; float: right; padding-right: 20px;">Quản
+				lý doanh thu</a>
+			<hr class="text-gray-800"
+				style="clear: both; margin: 20px; margin-top: 5px; border: 1px solid;">
+		</div>
+
+		<div class="row">
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Doanh thu (Theo ngày)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${reDay}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-dollar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-success text-uppercase mb-1">
+									Doanh thu (Theo tuần)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${reWeek}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-dollar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Earnings (Quarter) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+									Doanh thu (Theo tháng)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${reMonth}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-dollar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-info shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-info text-uppercase mb-1">
+									Doanh thu (Theo năm)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${reYear}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-dollar fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="row">
+
+			<!-- Area Chart -->
+			<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN DOANH
+							THU TRONG NĂM</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myAreaChart" width="752" height="400"
+								style="display: block; height: 320px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN DOANH
+							THU THEO QUÝ</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-pie pt-4 pb-2">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myPieChart" width="752" height="306"
+								style="display: block; height: 245px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Khách hàng -->
+		<div>
+			<br>
+			<h1 class="h3 mb-0 text-gray-800"
+				style="padding-left: 20px; display: inline;">Khách hàng</h1>
+			<a th:href="@{/admin/users}"
+				style="text-decoration: none; float: right; padding-right: 20px;">Quản
+				lý khách hàng</a>
+			<hr class="text-gray-800"
+				style="clear: both; margin: 20px; margin-top: 5px; border: 1px solid;">
+		</div>
+
+		<div class="row">
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Khách hàng mới (Theo ngày)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${cusDay}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-user fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-success text-uppercase mb-1">
+									Khách hàng mới (Theo tháng)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${cusMonth}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-user fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Earnings (Quarter) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+									Khách hàng mới (Theo năm)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${cusYear}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-user far fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-left-info shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div
+									class="text-xs font-weight-bold text-info text-uppercase mb-1">
+									Tổng số khách hàng</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800"
+									th:text="${cusTotal}"></div>
+							</div>
+							<div class="col-auto">
+								<i class="fa fa-user fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+
+			<!-- Area Chart -->
+			<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN KHÁCH HÀNG MỚI TRONG NĂM</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myAreaChart2" width="752" height="400"
+								style="display: block; height: 320px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-xl-4 col-lg-5">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">TỔNG QUAN KHÁCH HÀNG MỚI THEO QUÝ</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-pie pt-4 pb-2">
+							<div class="chartjs-size-monitor">
+								<div class="chartjs-size-monitor-expand">
+									<div class=""></div>
+								</div>
+								<div class="chartjs-size-monitor-shrink">
+									<div class=""></div>
+								</div>
+							</div>
+							<canvas id="myPieChart2" width="752" height="306"
+								style="display: block; height: 245px; width: 602px;"
+								class="chartjs-render-monitor"></canvas>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<!-- Biểu đồ doanh thu -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalMonthlyRevenue}]]*/'';
+			/*]]>*/
+			// Example data
+			var chartData = {
+				labels : [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+						"Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
+						"Tháng 10", "Tháng 11", "Tháng 12" ],
+				datasets : [ {
+					label : "Doanh thu ",
+					backgroundColor : "rgba(75, 192, 192, 0.2)",
+					borderColor : "rgba(75, 192, 192, 1)",
+					borderWidth : 1,
+					data : myVariable,
+				}, ],
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById("myAreaChart").getContext("2d");
+
+			// Create the area chart
+			var myAreaChart = new Chart(ctx, {
+				type : "line", // You can use 'line' for a line chart or 'bar' for a bar chart
+				data : chartData,
+				options : {
+					scales : {
+						y : {
+							beginAtZero : true,
+						},
+					},
+				},
+			});
+		</script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalQuarterRevenue}]]*/'';
+			/*]]>*/
+			// Example data
+			var pieData = {
+				labels : [ 'Quý 1     ', 'Quý 2     ', 'Quý 3     ', 'Quý 4     ' ],
+				datasets : [ {
+					data : myVariable,
+					backgroundColor : [ '#007bff', '#28a745', '#17a2b8',
+							'#FF99FF' ]
+				} ]
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById('myPieChart').getContext('2d');
+
+			// Create the pie chart
+			var myPieChart = new Chart(ctx, {
+				type : 'pie',
+				data : pieData,
+				options : {
+					legend : {
+						position : 'bottom',
+					}
+				}
+			});
+		</script>
+		
+		<!-- Biểu đồ đơn hàng -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalMonthlyParcel}]]*/'';
+			/*]]>*/
+			// Example data
+			var chartData = {
+				labels : [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+						"Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
+						"Tháng 10", "Tháng 11", "Tháng 12" ],
+				datasets : [ {
+					label : "Đơn hàng ",
+					backgroundColor : "rgba(75, 192, 192, 0.2)",
+					borderColor : "rgba(75, 192, 192, 1)",
+					borderWidth : 1,
+					data : myVariable,
+				}, ],
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById("myAreaChart1").getContext("2d");
+
+			// Create the area chart
+			var myAreaChart = new Chart(ctx, {
+				type : "line", // You can use 'line' for a line chart or 'bar' for a bar chart
+				data : chartData,
+				options : {
+					scales : {
+						y : {
+							beginAtZero : true,
+						},
+					},
+				},
+			});
+		</script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalQuarterParcel}]]*/'';
+			/*]]>*/
+			// Example data
+			var pieData = {
+				labels : [ 'Quý 1   ', 'Quý 2   ', 'Quý 3   ', 'Quý 4   ' ],
+				datasets : [ {
+					data : myVariable,
+					backgroundColor : [ '#007bff', '#28a745', '#17a2b8',
+							'#FF99FF' ]
+				} ]
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById('myPieChart1').getContext('2d');
+
+			// Create the pie chart
+			var myPieChart = new Chart(ctx, {
+				type : 'pie',
+				data : pieData,
+				options : {
+					legend : {
+						position : 'bottom',
+					}
+				}
+			});
+		</script>
+		
+		<!-- Biểu đồ khách hàng -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalMonthlyCustomer}]]*/'';
+			/*]]>*/
+			// Example data
+			var chartData = {
+				labels : [ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+						"Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",
+						"Tháng 10", "Tháng 11", "Tháng 12" ],
+				datasets : [ {
+					label : "Khách hàng ",
+					backgroundColor : "rgba(75, 192, 192, 0.2)",
+					borderColor : "rgba(75, 192, 192, 1)",
+					borderWidth : 1,
+					data : myVariable,
+				}, ],
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById("myAreaChart2").getContext("2d");
+
+			// Create the area chart
+			var myAreaChart = new Chart(ctx, {
+				type : "line", // You can use 'line' for a line chart or 'bar' for a bar chart
+				data : chartData,
+				options : {
+					scales : {
+						y : {
+							beginAtZero : true,
+						},
+					},
+				},
+			});
+		</script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var myVariable = /*[[${totalQuarterCustomer}]]*/'';
+			/*]]>*/
+			// Example data
+			var pieData = {
+				labels : [ 'Quý 1   ', 'Quý 2   ', 'Quý 3   ', 'Quý 4   ' ],
+				datasets : [ {
+					data : myVariable,
+					backgroundColor : [ '#007bff', '#28a745', '#17a2b8',
+							'#FF99FF' ]
+				} ]
+			};
+
+			// Get the canvas element
+			var ctx = document.getElementById('myPieChart2').getContext('2d');
+
+			// Create the pie chart
+			var myPieChart = new Chart(ctx, {
+				type : 'pie',
+				data : pieData,
+				options : {
+					legend : {
+						position : 'bottom',
+					}
+				}
+			});
+		</script>
+		
+	</section>
+
+
+	<!-- Plugin datalabels -->
+
+</body>
+
+</html>

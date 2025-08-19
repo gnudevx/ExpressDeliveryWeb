@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/config_layout/layout-user.html}" lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+		const token = response.headers.get("Authorization");
+
+		if (token) {
+			// Lưu token vào localStorage
+			localStorage.setItem("jwt_token", token); // Lưu trong localStorage
+
+			// Hoặc nếu bạn muốn lưu trong sessionStorage
+			sessionStorage.setItem("jwt_token", token); // Lưu trong sessionStorage
+		}
+	</script>
+	<style>
+		/* Toàn bộ giao diện */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f8ff, #e3e9f7);
+            margin: 0;
+            padding: 0;
+        }
+        .tracking-container {
+            padding: 30px;
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 150px;
+        }
+        .tracking-container h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+        .tracking-container p {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 30px;
+             height: auto;
+        }
+		.order{
+			margin-bottom: 30px;
+             height: auto;
+             margin: auto;
+		}
+        /* Thanh tìm kiếm */
+        .search-container {
+           display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+			margin-top:100px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            background: #f7f9fc;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: none;
+        }
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+        .search-bar button {
+            background: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .search-bar button:hover {
+            background: #0056b3;
+        }
+
+        /* Hình ảnh minh họa */
+        .illustration {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tùy chỉnh kích thước chữ và căn thẳng hàng */
+	.heading {
+		font-size: 1.5rem; /* Tăng kích thước chữ */
+		font-weight: 600;
+		text-align: center; /* Canh giữa tiêu đề */
+	}
+
+	/* Cải thiện canh thẳng hàng cho các đoạn văn bản */
+	.card-body p {
+		color: #555;
+		font-size: 1.2rem; /* Tăng kích thước chữ */
+		line-height: 1.5; /* Cải thiện khoảng cách dòng */
+		text-align: left; /* Canh trái cho văn bản */
+	}
+
+	.product-card {
+		border: 1px solid #ddd;
+		border-radius: 8px;
+	}
+
+	.product-img {
+		border-radius: 8px;
+		object-fit: cover;
+		height: 200px;
+	}
+
+	.card-header {
+		font-weight: bold;
+		font-size: 1.2rem; /* Kích thước chữ cho tiêu đề card */
+	}
+
+	textarea {
+		width: 100%;
+		height: 100px;
+		border-radius: 8px;
+	}
+
+	/* Cải thiện kiểu nút */
+	.btn-details {
+		background-color: #17a2b8;
+		color: white;
+	}
+	.btn-details:hover {
+		background-color: #138496;
+	}
+		/* Nút mở chat */
+        #chatButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Khung chat */
+        #chatBox {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Mặc định ẩn */
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #f1f1f1;
+            text-align: left;
+        }
+
+        .admin-message {
+            background-color: #e1f7d5;
+            text-align: right;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        .close-chat {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff5c5c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px;
+        }
+	</style>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+	<div th:if="${user == null}">
+		<form th:action="@{/account_handle/Search_order}" method="post">
+			<div class="tracking-container">
+				<h1>Tra Cứu Đơn Hàng</h1>
+				<p>Kiểm tra trạng thái đơn hàng của bạn một cách dễ dàng.</p>
+				<div class="search-container">
+					<div class="search-bar">
+						<input type="text" name = "ladingCode" placeholder="Nhập mã vận đơn của bạn...">
+						<button type="submit">🔍 Tìm kiếm</button>
+					</div>
+				</div>
+				<div class="text-center">
+					<img src="https://via.placeholder.com/500x300" alt="Delivery illustration" class="illustration">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div th:if="${user != null}">
+		<div class="order">
+			<div class="row">
+				<!-- Thông tin người dùng -->
+				<div class="col-md-3">
+					<div class="card mb-4 shadow-sm">
+						<div class="card-header bg-info text-white heading">Thông tin người dùng</div>
+						<div class="card-body text-center">
+							<img th:src="@{${user.avatarImagePath}}" class="rounded-circle" width="120" height="120" alt="/security/img/avatar.png">
+							<h5 class="mt-2" th:text="${user.fullName}"></h5>
+							<p th:text="'Email: ' + ${user.email}"></p>
+							<p th:text="'Số điện thoại: ' + ${user.phone}"></p>
+							<p th:text="'Địa chỉ: ' + ${user.address}"></p>
+						</div>
+					</div>
+				</div>
+				<!-- Sản phẩm của người dùng -->
+				<div class="col-md-9">
+					<h3 class="mb-4 text-secondary heading">Sản phẩm của bạn</h3>
+					<div class="row">
+						<div class="col-md-4" th:each="productDetail : ${productDetails}">
+							<div class="card product-card mb-4 shadow-sm">
+								<img th:src="@{${productDetail[2]}}" class="card-img-top product-img" alt="/security/img/mo-image.png">
+								<div class="card-body">
+									<h5 class="card-title" th:text="${productDetail[1]}">Tên sản phẩm</h5>
+									<p class="card-text">Trọng lượng: <span th:text="${productDetail[3]}"></span> kg</p>
+									<p class="card-text">Ngày đặt: <span th:text="${productDetail[4]}"></span></p>
+									<p class="card-text">Ngày giao hàng: <span th:text="${productDetail[5]}"></span></p>
+									<p class="card-text">Trạng thái: <span th:text="${productDetail[8]}"></span></p>
+									<p class="card-text"> Mô tả sản phẩm: <textarea readonly class="form-control mb-3" th:text="${productDetail[7]}"></textarea></p>
+									<a href="#" class="btn btn-primary btn-block">Xem chi tiết</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

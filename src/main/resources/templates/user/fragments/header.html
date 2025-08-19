@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+	<div th:fragment="header">
+		<!-- Navbar Start -->
+		<div class="container-fluid bg-white sticky-top">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+					<a th:href="@{/layout-user.html}" class="navbar-brand">
+						<img class="img-fluid" th:src="@{/security/logoUTE/logo_home.png}" alt="Logo">
+					</a>
+					<button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+						data-bs-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<div class="navbar-nav ms-auto">
+							<a th:href="@{/index.html}" class="nav-item nav-link active">Home</a>
+							<a th:href="@{/about.html}" class="nav-item nav-link">About</a>
+							<a th:href="@{/product.html}" class="nav-item nav-link">Products</a>
+							<a th:href="@{/store.html}" class="nav-item nav-link">Store</a>
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+								<div class="dropdown-menu bg-light rounded-0 m-0">
+									<a th:href="@{/feature.html}" class="dropdown-item">Features</a>
+									<a th:href="@{/blog.html}" class="dropdown-item">Blog Article</a>
+									<a th:href="@{/testimonial.html}" class="dropdown-item">Testimonial</a>
+									<a th:href="@{/404.html}" class="dropdown-item">404 Page</a>
+								</div>
+							</div>
+							<a th:href="@{account/Contact_manager}" class="nav-item nav-link">Contact</a>
+						</div>
+						<!-- Nếu người dùng đã đăng nhập -->
+						<div th:if="${user != null}">
+							<!-- Account Dropdown -->
+							<div class="dropdown ms-lg-3">
+								<button class="btn btn-white border-0 dropdown-toggle d-flex align-items-center"
+										type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+									<img th:src="@{/user/img/avarta.png}" alt="Avatar" class="rounded-circle me-2"
+										 style="width: 30px; height: 30px;">
+									<span>Customer</span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+									<li><a href="/account_handle/layoutEdit" class="dropdown-item">Quản lý tài khoản</a></li>
+									<li><a href="/account_handle/change_password" class="dropdown-item">Change Password</a></li>
+									<li><a href="/payment/create_payment" class="dropdown-item">Đơn hàng chưa thanh toán</a></li>
+									<li><a th:href="@{/help.html}" class="dropdown-item">Trợ giúp</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a href="/account/logout" class="dropdown-item text-danger">Đăng xuất</a></li>
+								</ul>
+							</div>
+							<div>
+								<p>Hi, <span th:text="${user.fullName}"></span></p>
+							</div>
+						</div>
+						<!-- Nếu người dùng chưa đăng nhập -->
+						<div th:if="${user == null}">
+							<a href="/account/login_account" class="btn btn-white border-0 d-flex align-items-center">
+								<img th:src="@{/user/img/avarta.png}" alt="Avatar" class="rounded-circle me-2"
+									 style="width: 30px; height: 30px;">
+								<span>Đăng nhập</span>
+							</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<!-- Navbar End -->
+	</div>
+
+	
+</body>
+
+</html>

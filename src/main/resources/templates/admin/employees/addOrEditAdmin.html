@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+
+	<!--Thêm dòng này vào-->
+	<section layout:fragment="content">
+
+		<!--Viết nội dung từ đây-->
+		<div class="row" style="padding: 20px; padding-top: 10px;">
+			<div class="col">
+				<div class="container-fluid">
+					<h1 style="font-size: 27px; padding-left: 10px;"
+						th:text="${employee.isEdit ? 'Chỉnh sửa thông tin Admin' : 'Thêm Admin mới'}"></h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a th:href="@{/admin/employees}"
+							style="text-decoration: none">Quản lý nhân viên</a></li>
+						<li th:if="${employee.isEdit}" class="breadcrumb-item active">
+							<a
+							th:href="@{/admin/employees/edit/{id}(id=${employee.userId})}"
+							style="text-decoration: none; color: black;"
+							th:text="'Chỉnh sửa thông tin Admin'"></a>
+						</li>
+
+						<li th:if="${!employee.isEdit}" class="breadcrumb-item active">
+							<a th:href="@{/admin/employees/addAdmin}"
+							style="text-decoration: none; color: black;"
+							th:text="'Thêm Admin mới'"></a>
+						</li>
+					</ol>
+					<form th:action="@{/admin/employees/saveOrUpdateAdmin}" method="POST">
+						<div class="card">
+							<div class="card-header">
+								<i class="icon-plus menu-icon"></i>
+								<h2 class="d-inline" style="font-size: 20px;"
+									th:text="${employee.isEdit ? 'Edit Admin' : 'Add New Admin'}"></h2>
+							</div>
+							<div class="card-body">
+								<div th:if="${message != null}">
+									<span th:text="${message}" style="color: red;"></span>
+									<span style="display: block; height: 0.5em;"></span>
+								</div> 
+								<div class="mb-3">
+									<label for="employeeId" class="form-label">Admin ID:</label>
+									<input type="hidden" th:name="isEdit"
+										th:value="${employee.isEdit}">
+									<input type="hidden" th:name="images"
+										th:value="${employee.images}">
+									<input type="hidden" th:name="createDate"
+										th:value="${employee.createDate}">
+									<input type="hidden" name="roleId" th:value="${roleId}" />
+									<input type="hidden" th:name="status"
+										th:value="${employee.status}">
+									<input type="text"
+										readonly="readonly" class="form-control"
+										th:value="${employee.userId}" id="userId" th:name="userId"
+										aria-describedby="userIdid" style="background: #ebebeb;">
+
+								</div>
+								<div class="mb-3">
+									<label for="fullname" class="form-label">Admin Full
+										Name:</label> <input type="text" class="form-control"
+										th:value="${employee.fullname}" id="fullname"
+										th:name="fullname">
+								</div>
+
+								<div class="mb-3">
+									<label for="email" class="form-label">Admin Email:</label> <input
+										type="text" class="form-control" th:value="${employee.email}"
+										id="email" th:name="email">
+								</div>
+
+								<div class="mb-3">
+									<label for="password" class="form-label">Admin
+										Password:</label> <input type="text" class="form-control"
+										th:value="${employee.password}" id="password"
+										th:name="password">
+								</div>
+
+								<div class="mb-3">
+									<label for="phone" class="form-label">Admin Phone:</label> <input
+										type="text" class="form-control" th:value="${employee.phone}"
+										id="phone" th:name="phone">
+								</div>
+
+								<div class="mb-3">
+									<label for="address" class="form-label">Admin
+										Address:</label> <input type="text" class="form-control"
+										th:value="${employee.address}" id="address" th:name="address">
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="card-footer text-muted" style="float: right;">
+							<button class="btn btn-primary" type="submit">
+								<i class="fa fa-save"></i> <span
+									th:text="${employee.isEdit ? 'Update' : 'Save'}"></span>
+							</button>
+							<a th:href="@{/admin/employees}" class="btn btn-success"><i
+								class="fa fa-bars"></i> Danh sách nhân viên</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

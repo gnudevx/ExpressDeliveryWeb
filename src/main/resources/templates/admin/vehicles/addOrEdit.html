@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+
+	<!--Thêm dòng này vào-->
+	<section layout:fragment="content">
+
+		<!--Viết nội dung từ đây-->
+		<div class="row" style="padding: 20px; padding-top: 10px;">
+			<div class="col">
+				<div class="container-fluid">
+					<h1 style="font-size: 27px; padding-left: 10px;"
+						th:text="${vehicle.isEdit ? 'Chỉnh sửa phương tiện vận chuyển' : 'Thêm phương tiện vận chuyển mới'}"></h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a th:href="@{/admin/vehicles}"
+							style="text-decoration: none">Quản lý phương tiện vận chuyển</a></li>
+						<li th:if="${vehicle.isEdit}" class="breadcrumb-item active">
+							<a
+							th:href="@{/admin/vehicles/edit/{id}(id=${vehicle.vehicleId})}"
+							style="text-decoration: none; color: black;"
+							th:text="'Chỉnh sửa phương tiện vận chuyển'"></a>
+						</li>
+
+						<li th:if="${!vehicle.isEdit}" class="breadcrumb-item active">
+							<a th:href="@{/admin/vehicles/add}"
+							style="text-decoration: none; color: black;"
+							th:text="'Thêm phương tiện vận chuyển mới'"></a>
+						</li>
+					</ol>
+					<form th:action="@{/admin/vehicles/saveOrUpdate}" method="POST">
+						<div class="card">
+							<div class="card-header">
+								<i class="icon-plus menu-icon"></i>
+								<h2 class="d-inline" style="font-size: 20px;"
+									th:text="${vehicle.isEdit ? 'Edit Vehicle' : 'Add New Vehicle'}"></h2>
+							</div>
+							<div class="card-body">
+								<div class="mb-3">
+
+									<label for="vehicleId" class="form-label">Vehicle ID:</label> <input
+										type="hidden" th:name="isEdit" th:value="${vehicle.isEdit}">
+
+									<input type="text" readonly="readonly" class="form-control"
+										th:value="${vehicle.vehicleId}" id="vehicleId"
+										th:name="vehicleId" aria-describedby="vehicleId"
+										style="background: #ebebeb;">
+
+								</div>
+								<div class="mb-3">
+									<label for="licensePlate" class="form-label">Vehicle
+										License Plate:</label> <input type="text" class="form-control"
+										th:value="${vehicle.licensePlate}" id="licensePlate"
+										th:name="licensePlate">
+								</div>
+
+								<div class="mb-3">
+									<label for="vehicleType">Vehicle Type:</label>
+									<select class="btn btn-secondary form-control"
+										name="vehicleTypeId" id="vehicleTypeId"
+										style="line-height: 35px; padding: 10px 10px; text-align: center;">
+										<option th:each="item : ${listType}"
+											th:value="${item.vehicleTypeId}" th:text="${item.name}"
+											th:selected="${item.vehicleTypeId == vehicleTypeId}">
+										</option>
+									</select>
+								</div>
+
+
+
+								<div class="mb-3">
+									<label for="status">Vehicle Status:</label> <select
+										class="btn btn-secondary form-control" th:name="status"
+										id="status"
+										style="line-height: 35px; padding: 10px 10px; text-align: center;">
+										<option th:value="Active" th:text="'Active'"
+											th:selected="${vehicle.status == 'Active'}"></option>
+										<option th:value="Inactive" th:text="'Inactive'"
+											th:selected="${vehicle.status == 'Inactive'}"></option>
+										<option th:value="Maintenance" th:text="'Maintenance'"
+											th:selected="${vehicle.status == 'Maintenance'}"></option>
+									</select>
+								</div>
+
+
+							</div>
+						</div>
+						<br>
+						<div class="card-footer text-muted" style="float: right;">
+							<button class="btn btn-primary" type="submit">
+								<i class="fa fa-save"></i> <span
+									th:text="${vehicle.isEdit ? 'Update' : 'Save'}"></span>
+							</button>
+							<a th:href="@{/admin/vehicles}" class="btn btn-success"><i
+								class="fa fa-bars"></i> Danh sách phương tiện vận chuyển</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>
