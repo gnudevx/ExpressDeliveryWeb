@@ -50,8 +50,8 @@ public class Register_Login_User {
         //create file name
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         System.out.println(fileName);
-        user.setImagePath(fileName);
-        System.out.println((user.getAvatarImagePath()));
+//        user.setImagePath(fileName);
+//        System.out.println((user.getAvatarImagePath()));
         user.setRole(Role.builder().roleId(selectedOption).build());
         User saveUser = userService.create(user);
         String uploadDir = "./update-avatar/" +  saveUser.getUserId();
@@ -94,9 +94,9 @@ public class Register_Login_User {
             response.addCookie(jwtCookie);
             session.setAttribute("user", user);
             redirectAttributes.addFlashAttribute("user", user);
-            if (user.getRole().getName().equalsIgnoreCase("USER")) {
+            if (user.getRole().getRoleName().equalsIgnoreCase("USER")) {
                 return "redirect:/home/home_user"; // Chuyển hướng đến trang home nếu role là USER
-            } else if (user.getRole().getName().equalsIgnoreCase("SHIPPER")) {
+            } else if (user.getRole().getRoleName().equalsIgnoreCase("SHIPPER")) {
                 return "redirect:/shipper/listPacel"; // Chuyển hướng đến trang shipper nếu role là SHIPPER
             } else {
                 return "redirect:/admin/dashboard"; // Mặc định chuyển hướng đến admin

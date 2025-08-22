@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import vn.iostar.repository.*;
 import vn.iostar.service_M.*;
-import vn.iostar.entity.ParcelType;
+//import vn.iostar.entity.ParcelType;
 import vn.iostar.entity.Role;
 import vn.iostar.entity.User;
 

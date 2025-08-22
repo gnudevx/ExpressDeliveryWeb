@@ -10,8 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>vn.iotstar</groupId>
-	<artifactId>project_java_CK</artifactId>
+	<artifactId>ExpressDelivery</artifactId>
 	<version>1.0</version>
+
 	<name>project_java_CK</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
@@ -29,6 +30,8 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -214,7 +217,11 @@
 			<version>2.2.4</version>
 		</dependency>
 
-
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>12.8.1.jre8</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -230,6 +237,26 @@
 					</excludes>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.hibernate.orm.tooling</groupId>
+                <artifactId>hibernate-tools-maven-plugin</artifactId>
+                <version>5.6.15.Final</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>hbm2ddl</goal>
+                            <goal>hbm2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdbcconfiguration>
+                        <propertyfile>src/main/resources/hibernate.properties</propertyfile>
+                    </jdbcconfiguration>
+                    <outputdirectory>src/main/java</outputdirectory>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>

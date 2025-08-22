@@ -49,11 +49,11 @@ public interface TransactionRepository extends JpaRepository<PostOffice, Integer
 			+ "FULL OUTER JOIN Yearly yr ON o.office_id = yr.start_office_id;", nativeQuery = true)
 	List<Object[]> findTransaction();
 	
-	@Query("SELECT m.name, p.parcelId, p.user.userId, p.createDate, p.completeDate, p.shippingFee " +
-		       "FROM Parcel p " +
-		       "JOIN p.paymentMethod m " +
-		       "JOIN p.user u " +
-		       "WHERE p.startOffice.id = :id " +
-		       "ORDER BY p.createDate DESC")
-	List<Object[]> findTransactionByIdStartOffice(@Param("id") int id);
+//	@Query("SELECT m.name, p.parcelId, p.user.userId, p.createDate, p.completeDate, p.shippingFee " +
+//		       "FROM Parcel p " +
+//		       "JOIN p.paymentMethod m " +
+//		       "JOIN p.user u " +
+//		       "WHERE p.startOffice.id = :id " +
+//		       "ORDER BY p.createDate DESC")
+//	List<Object[]> findTransactionByIdStartOffice(@Param("id") int id);
 }

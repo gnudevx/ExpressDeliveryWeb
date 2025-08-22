@@ -1,19 +1,17 @@
 package vn.iostar.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.iostar.entity.ParcelDetail;
-import vn.iostar.entity.ParcelType;
-import vn.iostar.entity.PaymentMethod;
+//import vn.iostar.entity.ParcelDetail;
+//import vn.iostar.entity.ParcelType;
 import vn.iostar.entity.PostOffice;
 import vn.iostar.entity.Recipient;
-import vn.iostar.entity.RouteHistory;
-import vn.iostar.entity.ShippingType;
+//import vn.iostar.entity.RouteHistory;
+//import vn.iostar.entity.ShippingType;
 import vn.iostar.entity.User;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +26,6 @@ public class ParcelModel {
     private User user;
 
     private Recipient recipient;
-
-    private PaymentMethod paymentMethod;
 
     private PostOffice startOffice;
 
@@ -53,8 +49,8 @@ public class ParcelModel {
 
     private LocalDateTime completeDate;
 
-    private ParcelType parcelType;
-    private List<RouteHistory> routeHistories;
-    private ShippingType shippingType;
+//    private ParcelType parcelType;
+//    private List<RouteHistory> routeHistories;
+//    private ShippingType shippingType;
     private Boolean isEdit = false;
 }

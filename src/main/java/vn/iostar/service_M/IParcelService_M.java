@@ -3,7 +3,7 @@ package vn.iostar.service_M;
 import java.util.List;
 
 import vn.iostar.entity.Parcel;
-import vn.iostar.entity.ParcelType;
+//import vn.iostar.entity.ParcelType;
 import vn.iostar.models.ParcelDTO;
 
 public interface IParcelService_M {

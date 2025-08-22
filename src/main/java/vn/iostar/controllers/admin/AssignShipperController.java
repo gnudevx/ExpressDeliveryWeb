@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/admin/assign-shipper")
 public class AssignShipperController {
 
-    @Autowired
-    private IParcelService_M parcelService;
+//    @Autowired
+//    private IParcelService_M parcelService;
 
     @Autowired
     private IUserService_M userService;
@@ -25,8 +25,8 @@ public class AssignShipperController {
     @GetMapping("")
     public String getUnassignedParcels(Model model) {
         // Lấy danh sách các đơn chưa được gán shipper
-        List<Parcel> unassignedParcels = parcelService.getUnassignedParcels();
-        model.addAttribute("parcels", unassignedParcels);
+//        List<Parcel> unassignedParcels = parcelService.getUnassignedParcels();
+//        model.addAttribute("parcels", unassignedParcels);
 
         // Lấy danh sách tất cả shipper hiện có
         List<User> shippers = userService.findShippers();
@@ -39,7 +39,7 @@ public class AssignShipperController {
     @PostMapping("/{parcelId}/assign")
     public String assignShipperToParcel(@PathVariable Integer parcelId, @RequestParam Integer shipperId) {
         // Gọi service để gán shipper cho parcel
-        parcelService.assignShipperToParcel(parcelId, shipperId);
+//        parcelService.assignShipperToParcel(parcelId, shipperId);
 
         // Chuyển hướng lại trang danh sách sau khi phân công thành công
         return "admin/management/shippingManagement/listUnassign";

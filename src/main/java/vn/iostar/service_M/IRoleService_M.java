@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import vn.iostar.entity.ParcelType;
+//import vn.iostar.entity.ParcelType;
 import vn.iostar.entity.Role;
 import vn.iostar.entity.User;
 

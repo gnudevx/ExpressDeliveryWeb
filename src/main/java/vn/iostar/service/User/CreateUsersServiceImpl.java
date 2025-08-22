@@ -33,17 +33,17 @@ public class CreateUsersServiceImpl implements ICreateUsersService {
              step 2: save it in user and encoder!
         */
         String password = clientService.create(user);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPasswordHash(passwordEncoder.encode(password));
         userRepository.save(user);
         return user;
     }
     public String loginUser(String email, String password){
         User user = userRepository.findByEmail(email);
             //return(passwordEncoder.matches(password, user.getPassword()));
-        boolean result =  passwordEncoder.matches(password, user.getPassword());
+        boolean result =  passwordEncoder.matches(password, user.getPasswordHash());
         if(result){
-            System.out.println("ma token:" + auth.generateToken(user.getEmail(), user.getRole().getName()));
-            return auth.generateToken(user.getEmail(),user.getRole().getName());
+            System.out.println("ma token:" + auth.generateToken(user.getEmail(), user.getRole().getRoleName()));
+            return auth.generateToken(user.getEmail(),user.getRole().getRoleName());
         }else {
             return null;
         }

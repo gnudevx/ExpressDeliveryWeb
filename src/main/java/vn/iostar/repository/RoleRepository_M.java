@@ -2,7 +2,7 @@ package vn.iostar.repository;
 
 import org.springframework.stereotype.Repository;
 
-import vn.iostar.entity.ParcelType;
+//import vn.iostar.entity.ParcelType;
 import vn.iostar.entity.Role;
 import vn.iostar.entity.User;
 
