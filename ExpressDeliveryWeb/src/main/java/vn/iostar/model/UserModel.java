@@ -32,6 +32,7 @@ public class UserModel {
     private LocalDateTime createDate;
     
     private Role role;
+
     @NotEmpty
     private String address;
     
